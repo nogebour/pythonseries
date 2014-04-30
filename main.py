@@ -40,6 +40,7 @@ def sort_shows(to_see):
 def main():
 	args=args_space()
 	beta = betapy.Beta(login=args.login, password=args.password, format='json')
+	#beta = betapy.Beta(login="nogebour", password="jv99xkzz", format='json')
 	conn = MySQLdb.connect(host="localhost", user="betapy", passwd="", db="betapy")
 	c = conn.cursor()
 	try:
@@ -51,17 +52,18 @@ def main():
 			count +=show['remaining']
 		print count
 		c.execute("INSERT INTO global_remain(day, count) VALUES (CURDATE(), %s)" % (count))
-		#print sort_shows(to_see)
+		print sort_shows(to_see)
 		id_title, id_remaining = struct_datas(to_see)
 		for id_show, name in id_title.iteritems():
 			c.execute("SELECT id FROM tvshow WHERE id=%s;" % (id_show))
 			if c.fetchone() is None:
 				c.execute("INSERT INTO tvshow(id, name) VALUES (%s, \"%s\");" % (id_show, name))
+				#print ""
 		for remain, shows in id_remaining.iteritems():
 			for one_show in shows: 
-				#print "Hello"
+				#print ""
 				c.execute("INSERT INTO stats_show(id, day,remaining) VALUES (%s, CURDATE(), %s);" % (one_show, remain))
-		#conn.commit()
+		conn.commit()
 		conn.close()
 	except urllib2.HTTPError, err:
 		print "Error"

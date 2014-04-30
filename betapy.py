@@ -56,7 +56,7 @@ class Beta:
     def __init__( self,
                   key="a71be26370dc",
                   user_agent="BetaPy",
-                  format=None,
+                  format="json",
                   login=None,
                   password=None):
         """Initialisation des paramètres.
@@ -89,89 +89,16 @@ class Beta:
         self.build = Builder(self.key, self.user_agent, self.format)
         # le token est à attribué lors à l'instanciation de la class Beta
         self.token = None
-
-
-    def shows_search(self, title):
-        """Liste les séries qui contiennent exactement la portion search dans leur titre.
-
-        l'argument title doit avoir plus de 2 caractères.
         
-        """
-        params = urllib.urlencode({'title': title})
-        url = self.build.url("/shows/search", params)
-        return self.build.data(url)
-
-
-    def shows_display(self, idshow):
-        """Donne des informations sur la série (identifiée par son id).
-
-        Note : Si url est à all, la fonction retourne toutes les séries de BetaSeries.
-
-        """
-	params = urllib.urlencode({'id': idshow})
-        url = self.build.url("/shows/display", params, True)
-        return self.build.data(url)
-
-
-    def subtitles_last(self, number="", language=""):
-        """Affiche les derniers sous-titres récupérés par BetaSeries,
-        dans la limite de 100.
-
-        Possibilité de spécifier la langue et/ou une série en particulier.
-
-        """
-        params = urllib.urlencode({'number': number,
-                                   'language': language})
-        url = self.build.url("/subtitles/last", params)
-        return self.build.data(url)
-
-
-    def subtitles_show(self, serie, season="", episode="", language="", file_=""):
-        """Affiche les sous-titres récupérés par BetaSeries d'une certaine série,
-        dans la limite de 100.
-
-        Possibilité de spécifier la langue et/ou une saison, un épisode en particulier.
-
-        Vous pouvez récupérer des sous-titres directement grâce au nom des fichiers vidéo.
-
-        """
-        #si l'utilisateur entre un nom de fichier vidéo
-        if file_:
-            params = urllib.urlencode({'file': file_,
-                                       'language': language})
-            url = self.build.url("/subtitles/show", params)
-        else:
-            params = urllib.urlencode({'season': season,
-                                       'episode': episode,
-                                       'language': language})
-            url = self.build.url("/subtitles/show/%s" % serie, params)
-        return self.build.data(url)
-
-
-    def planning_general(self):
-        """Affiche tous les épisodes diffusés les 8 derniers jours
-        jusqu'aux 8 prochains jours.
-
-        """
-        url = self.build.url("/planning/general")
-        return self.build.data(url)
-
-        
-    def planning_member(self, login="", view=""):
+    def planning_member(self, token="", view=""):
         """Affiche le planning du membre identifié ou d'un autre membre.
         
         L'accès varie selon les options vie privée de chaque membre).
         Vous pouvez rajouter le paramètre view pour n'afficher que les épisodes encore non-vus.
 
         """
-        if login:
-            login = "/%s" % login
-            params = urllib.urlencode({'view' : view})
-        else:
-            params = urllib.urlencode({'token': self.token,
-                                       'view' : view})
-
-        url = self.build.url("/planning/member%s" % login, params)
+        params = urllib.urlencode({'token': token,'view' : view})
+        url = self.build.url("/planning/member", params)
         return self.build.data(url)
         
 
@@ -201,14 +128,7 @@ class Beta:
         post_params = urllib.urlencode({'login': self.login, 'password': hash_pass})
         url = self.build.url("/members/auth", params)
         return self.build.data(url, True, post_params)
-
-
-
-    def members_is_active(self, token):
-        """Vérifie si le token spécifié est actif."""
-        params = urllib.urlencode({'token': token})
-        url = self.build.url("/members/is_active", params)
-        return self.build.data(url)
+        
 
     def members_episodes(self, token):
         """Vérifie si le token spécifié est actif."""
@@ -216,32 +136,22 @@ class Beta:
         url = self.build.url("/episodes/list", params)
         return self.build.data(url)
 
-
-    def members_destroy(self):
-        """Vérifie si le token spécifié est actif."""
-        params = urllib.urlencode({'token': self.token})
-        url = self.build.url("/members/destroy", params)
+    def similar(self, id_show):
+        """
+        Get the similar show from the show given in arg
+        """    
+        params = urllib.urlencode({'id': id_show})
+        url = self.build.url("/shows/similars", params)
+        #print url
         return self.build.data(url)
 
-
-    def members_infos(self, login="", nodata=1, since=None):
+    def members_infos(self, token=None, login=None):
         """Renvoie les informations principales du membre identifié ou d'un autre membre."""
         # si le nom d'un utilisateur est fourni, on ajoute le paramètre
-        if login:
-            login = "/%s" % login
-        params = urllib.urlencode({'token': self.token,
-                                   'nodata' : nodata,
-                                   'since' : since})
-        url = self.build.url("/members/infos%s" % login, params)
+        params = urllib.urlencode({'token': token})
+        url = self.build.url("/members/infos", params)
+        #print url
         return self.build.data(url)
-
-
-    def members_options(self):
-        """Retourne les options du membre."""
-        params = urllib.urlencode({'token': self.token})
-        url = self.build.url("/members/options", params)
-        return self.build.data(url)
-
 
 
 class Builder:
@@ -284,7 +194,7 @@ class Builder:
         netloc = 'api.betaseries.com'
 	path = method
         # insertion de la clé api
-        param_key = "key=%s" % self.key
+        param_key = "key=%s&v=%s" % (self.key, self.version)
         # construction des paramètres de l'url
         query = '%s&%s' % (param_key, params)
         # retourne l'ensemble de l'url
