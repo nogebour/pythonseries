@@ -90,31 +90,6 @@ class Beta:
         # le token est à attribué lors à l'instanciation de la class Beta
         self.token = None
         
-    def planning_member(self, token="", view=""):
-        """Affiche le planning du membre identifié ou d'un autre membre.
-        
-        L'accès varie selon les options vie privée de chaque membre).
-        Vous pouvez rajouter le paramètre view pour n'afficher que les épisodes encore non-vus.
-
-        """
-        params = urllib.urlencode({'token': token,'view' : view})
-        url = self.build.url("/planning/member", params)
-        return self.build.data(url)
-        
-
-#    def members_auth(self):
-#        """Identifie le membre avec son login et le hash MD5.
-#
-#       Retourne le token à utiliser pour les requêtes futures.
-#
-#        """
-#        # hash MD5 du mot de passe
-#        hash_pass = hashlib.md5(self.password).hexdigest()
-#        # paramètres de l'url
-#        params = urllib.urlencode({'login': self.login, 'password': hash_pass})
-#        url = self.build.url("/members/auth", params)
-#        return self.build.data(url)
-
     def members_auth(self):
         """Identifie le membre avec son login et le hash MD5.
 
@@ -127,22 +102,12 @@ class Beta:
         params = urllib.urlencode({})
         post_params = urllib.urlencode({'login': self.login, 'password': hash_pass})
         url = self.build.url("/members/auth", params)
-        return self.build.data(url, True, post_params)
-        
+        return self.build.data(url, True, post_params)        
 
     def members_episodes(self, token):
         """Vérifie si le token spécifié est actif."""
         params = urllib.urlencode({'token': token})
         url = self.build.url("/episodes/list", params)
-        return self.build.data(url)
-
-    def similar(self, id_show):
-        """
-        Get the similar show from the show given in arg
-        """    
-        params = urllib.urlencode({'id': id_show})
-        url = self.build.url("/shows/similars", params)
-        #print url
         return self.build.data(url)
 
     def members_infos(self, token=None, login=None):
@@ -153,6 +118,49 @@ class Beta:
         #print url
         return self.build.data(url)
 
+    def planning_member(self, token="", view=""):
+        """Affiche le planning du membre identifié ou d'un autre membre.
+        
+        L'accès varie selon les options vie privée de chaque membre).
+        Vous pouvez rajouter le paramètre view pour n'afficher que les épisodes encore non-vus.
+
+        """
+        params = urllib.urlencode({'token': token,'view' : view})
+        url = self.build.url("/planning/member", params)
+        return self.build.data(url)
+        
+    def show_list(self, order = None, since = None):
+        """
+        Get the list of show sort by order defines as arg 
+        (alphabetical, popularity, followers -> optionnal) 
+        and since timestamp UNIX given (optionnal)
+        """
+        args = {}
+        if order is not None:
+            args['order'] = order
+        if since is not None:
+            args['since'] = since
+        params = urllib.urlencode(args)
+        url = self.build.url("/shows/list", params)
+        return self.build.data(url)
+                        
+        
+    def show_similar(self, id_show):
+        """
+        Get the similar show from the show given in arg
+        """    
+        params = urllib.urlencode({'id': id_show})
+        url = self.build.url("/shows/similars", params)
+        #print url
+        return self.build.data(url)
+
+    def subtitles_episode(self, id, language='all'):
+        """
+        Show the subtitle for the episode identified by the id
+        """
+        params = urllib.urlencode({'id': id, 'language': language})
+        url = self.build.url("/subtitles/episode", params)
+        return self.build.data(url)
 
 class Builder:
     """Ensemble de fonctions utiles pour le traitement des requêtes vers l'API.
