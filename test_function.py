@@ -11,6 +11,7 @@ debug_subtitle = False
 debug_ended = False
 debug_list_show = False
 debug_export_file = False
+debug_episodes_display = True
 def args_space():
 	parser = argparse.ArgumentParser(description='Betaseries Authentification.')
 	parser.add_argument('-l', '--login', type=str, required=True, help='Login for betaseries')
@@ -61,8 +62,9 @@ def main():
                         f = open("series.json", "w")
                         f.write(str(shows_list))
                         f.close()
-        
-                	
+        if debug_episodes_display:
+                print '###########################'        
+                print json.loads(beta.episodes_display(id=[192197,192198]))	
 		
 if __name__ == "__main__":
 	main()

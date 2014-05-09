@@ -89,7 +89,24 @@ class Beta:
         self.build = Builder(self.key, self.user_agent, self.format)
         # le token est à attribué lors à l'instanciation de la class Beta
         self.token = None
-        
+
+    def episodes_display(self, id = [], thetvdb_id = [], subtitles = True):
+        """
+        id
+        """
+        if (len(id) + len(thetvdb_id)) == 0:
+            print "at least, one array between id and thetvdb_id must be not empty !"
+            return None
+        dict_params = {}        
+        if (len(id) > 0):
+            dict_params['id'] = str(id).strip('[]').replace(" ", "")
+        if (len(thetvdb_id) > 0):
+            dict_params['thetvdb_id'] = str(thetvdb_id).strip('[]').replace(" ", "")
+        dict_params['subtitles'] = str(subtitles).lower()
+        params = urllib.urlencode(dict_params)
+        url = self.build.url("/episodes/display", params)
+        return self.build.data(url)        
+                
     def members_auth(self):
         """Identifie le membre avec son login et le hash MD5.
 
