@@ -106,7 +106,22 @@ class Beta:
         params = urllib.urlencode(dict_params)
         url = self.build.url("/episodes/display", params)
         return self.build.data(url)        
-                
+
+    def episodes_list(self, subtitles = "all", limit = None, showId = None, userId = None, token = None):
+        dict_params = {}
+        if userId is not None:
+            dict_params['userId']= userId
+        if showId is not None:
+            dict_params['showId']= showId
+        if token is not None:
+            dict_params['token']= token
+        if limit is not None:
+            dict_params['limit']= limit
+        dict_params['subtitles']= subtitles
+        params = urllib.urlencode(dict_params)
+        url = self.build.url("/episodes/list", params)
+        return self.build.data(url)
+        
     def members_auth(self):
         """Identifie le membre avec son login et le hash MD5.
 
@@ -123,9 +138,7 @@ class Beta:
 
     def members_episodes(self, token):
         """Vérifie si le token spécifié est actif."""
-        params = urllib.urlencode({'token': token})
-        url = self.build.url("/episodes/list", params)
-        return self.build.data(url)
+        return self.episodes_list(token=token)
 
     def members_infos(self, token=None, login=None):
         """Renvoie les informations principales du membre identifié ou d'un autre membre."""

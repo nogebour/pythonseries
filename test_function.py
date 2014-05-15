@@ -11,7 +11,8 @@ debug_subtitle = False
 debug_ended = False
 debug_list_show = False
 debug_export_file = False
-debug_episodes_display = True
+debug_episodes_display = False
+debug_episodes_list = True
 def args_space():
 	parser = argparse.ArgumentParser(description='Betaseries Authentification.')
 	parser.add_argument('-l', '--login', type=str, required=True, help='Login for betaseries')
@@ -24,8 +25,8 @@ def main():
 	beta = betapy.Beta(login=args.login, password=args.password, format='json')
 	#beta = betapy.Beta(login="nogebour", password="jv99xkzz", format='json')
 	authRes = json.loads(beta.members_auth())
-	#print authRes
-	to_see = json.loads(beta.members_infos(authRes['token']))
+	token  = authRes['token']
+	to_see = json.loads(beta.members_infos(token))
         shows = []
         similar_show = {}
         id_title = {}
@@ -65,6 +66,10 @@ def main():
         if debug_episodes_display:
                 print '###########################'        
                 print json.loads(beta.episodes_display(id=[192197,192198]))	
+        if debug_episodes_list:
+                print '###########################'        
+                print json.loads(beta.episodes_list(token=token))
+                print json.loads(beta.members_episodes(token=token))
 		
 if __name__ == "__main__":
 	main()
