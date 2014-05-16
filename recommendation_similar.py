@@ -3,7 +3,6 @@
 import betapy
 import json
 import urllib2
-import MySQLdb
 import argparse	
 
 def args_space():
