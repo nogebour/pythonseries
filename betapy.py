@@ -148,6 +148,11 @@ class Beta:
         #print url
         return self.build.data(url)
 
+    def movies_random(self, nb=1):
+        params = urllib.urlencode({'nb': nb})
+        url = self.build.url("/movies/random", params)
+        return self.build.data(url)
+
     def planning_member(self, token="", view=""):
         """Affiche le planning du membre identifié ou d'un autre membre.
         

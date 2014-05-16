@@ -12,7 +12,8 @@ debug_ended = False
 debug_list_show = False
 debug_export_file = False
 debug_episodes_display = False
-debug_episodes_list = True
+debug_episodes_list = False
+debug_movies_random = True
 def args_space():
 	parser = argparse.ArgumentParser(description='Betaseries Authentification.')
 	parser.add_argument('-l', '--login', type=str, required=True, help='Login for betaseries')
@@ -70,6 +71,9 @@ def main():
                 print '###########################'        
                 print json.loads(beta.episodes_list(token=token))
                 print json.loads(beta.members_episodes(token=token))
+        if debug_movies_random:
+                print '###########################'        
+                print json.loads(beta.movies_random())
 		
 if __name__ == "__main__":
 	main()
