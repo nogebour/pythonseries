@@ -5,4 +5,6 @@ support the version 2.2 of the Betaseries API.
 
 I will do this step by step and I do not guarantee the functionment of all methods.
 
-Use this roject at your own risks. I do not guarantee the safety of this !
+Use this roject at your own risks. I do not guarantee the safety of this ! If you found some bugs, please report them ! if you have suggestion, submit them !
+
+My goal is to have a simple API to abstract just a level to the BetaSeries API. If you have more high-level ideas, submit them anyway
