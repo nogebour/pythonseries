@@ -1,6 +1,6 @@
 #! /usr/bin/env python
 
-import betapy
+import core.betapy as Betapy
 import json
 import urllib2
 import MySQLdb
@@ -15,7 +15,7 @@ def args_space():
 
 def main():
 	args=args_space()
-	beta = betapy.Beta(login=args.login, password=args.password, format='json')
+	beta = Betapy.Beta(login=args.login, password=args.password, format='json')
 	authRes = json.loads(beta.members_auth())
 	to_see = json.loads(beta.members_infos(authRes['token']))
         shows = []

@@ -1,6 +1,6 @@
 #! /usr/bin/env python
 
-import betapy
+import core.betapy as Betapy
 import json
 import urllib2
 import argparse	
@@ -14,7 +14,7 @@ def args_space():
 
 def main():
 	args=args_space()
-	beta = betapy.Beta(login=args.login, password=args.password, format='json')
+	beta = Betapy.Beta(login=args.login, password=args.password, format='json')
 	#beta = betapy.Beta(login="nogebour", password="jv99xkzz", format='json')
 	authRes = json.loads(beta.members_auth())
 	#print authRes
@@ -24,8 +24,6 @@ def main():
         id_title = {}
 	for show in to_see['member']['shows']:
                 shows.append(show['id'])
-                if show['status'] == 'Ended' and not show['user']['archived']:
-                        print show['title']
 	for show_id in shows:
                 try:
 	                similar = json.loads(beta.show_similar(show_id))
