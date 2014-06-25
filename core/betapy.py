@@ -14,45 +14,6 @@ import json
 
 
 class Beta:
-    """Ensemble de fonctions utilisant l'API de BetaSeries.
-    
-    PROPOSITION 1: l'organisation des fonctions de base de la
-    classe Beta() essaient de suivre les catégories établies par
-    l'API de BetaSeries:
-        * shows/
-        * subtitles/
-        * planning/
-        * members/
-        * comments/
-        * timeline/
-
-    PROPOSITION 2: on nomme les fonctions de la même manière que l'API de
-    base en ajoutant le caractère underscore dans le but de faciliter les
-    mises à jour:
-        EXEMPLE:
-        * show_search()
-        * show_display()
-        * subtitles_last()
-        * subtitles_show()
-        * ...
-
-    PROPOSITION 3: Procédure pour construire les fonctions de base
-    de la classe Beta():
-        EXEMPLE:
-            def shows_search(self, title):
-                params = urllib.urlencode({'title': title})
-                url = self.build.url("/shows/search", params)
-                return self.build.data(url)
-                
-        EXPLICATION:
-            # Si il y a des paramètres à l'url, ils utilisent urllib.urlencode()
-            params = urllib.urlencode({'title': title})
-            # on construit l'url à l'aide d'une fonction de la classe Builder
-            url = self.build.url("/shows/search", params)
-            # on retourne le contenu de la requête à l'aide d'une fonction de la classe Builder
-            return self.build.data(url)
-
-    """
     def __init__( self,
                   key="a71be26370dc",
                   user_agent="BetaPy",
@@ -64,7 +25,7 @@ class Beta:
         Possibilités de spécifier:
           * une clé api individuelle
           * l'user-agent pour les requêtes
-          * le format souhaité pour les retours de requêtes (xml ou json). Par
+.          * le format souhaité pour les retours de requêtes (xml ou json). Par
             défaut, le format de retour est un dictionnaire python.
 
         Pour définir le token une seule fois, l'attribuer à l'instance de Beta.
@@ -76,6 +37,8 @@ class Beta:
           print beta.planning_member()
         
         """
+        #Type element
+        self.type=["episode", "show", "member", "movie"]
         # définition de la clé API utilisateur.
         self.key = str(key)
         # définition de l'User-Agent pour les requêtes
@@ -89,7 +52,22 @@ class Beta:
         self.build = Builder(self.key, self.user_agent, self.format)
         # le token est à attribué lors à l'instanciation de la class Beta
         self.token = None
-
+    
+    def comments_comment(self, token, type, id, text, in_reply_to = None):
+        """
+        id:int, text:string, in_reply_to:int
+        """
+        
+        if id == None or text == None or (type not in self.type):
+            return None
+        params = urllib.urlencode({'token':token})
+        values = {'type': type, 'id': id, 'text': text}
+        if in_reply_to is not None:
+            values['in_reply_to']=in_reply_to
+        post_params = urllib.urlencode(values)       
+        url = self.build.url("/comments/comment", params, True)
+        return self.build.data(url, True, post_params)        
+    
     def episodes_display(self, id = [], thetvdb_id = [], subtitles = True):
         """
         id
@@ -219,6 +197,9 @@ class Builder:
         self.format = format
 	# Verison of the API used
 	self.version = "2.2"
+	handler=urllib2.HTTPHandler(debuglevel=1)
+	opener = urllib2.build_opener(handler)
+	urllib2.install_opener(opener)
 
 
     def url(self, method, params=None, https=False):
