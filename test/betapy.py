@@ -1,1 +1,1 @@
-core/betapy.py
+../core/betapy.py

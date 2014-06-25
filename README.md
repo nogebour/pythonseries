@@ -15,7 +15,7 @@ Work to do:
 |------|------|
 |POST comments/comment|Done|
 |DELETE comments/comment||
-|GET comments/comment||
+|GET comments/comments|Done|
 |GET comments/replies||
 |POST comments/subscription||
 |DELETE comments/subscription||

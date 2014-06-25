@@ -39,6 +39,8 @@ class Beta:
         """
         #Type element
         self.type=["episode", "show", "member", "movie"]
+        self. order = ["desc","asc"]
+        self.binary = [0,1]
         # définition de la clé API utilisateur.
         self.key = str(key)
         # définition de l'User-Agent pour les requêtes
@@ -53,12 +55,12 @@ class Beta:
         # le token est à attribué lors à l'instanciation de la class Beta
         self.token = None
     
-    def comments_comment(self, token, type, id, text, in_reply_to = None):
+    def post_comments_comment(self, token, type, id, text, in_reply_to = None):
         """
-        id:int, text:string, in_reply_to:int
+        type:self.type  id:int, text:string, in_reply_to:int
         """
-        
         if id == None or text == None or (type not in self.type):
+            ##TODO
             return None
         params = urllib.urlencode({'token':token})
         values = {'type': type, 'id': id, 'text': text}
@@ -67,6 +69,20 @@ class Beta:
         post_params = urllib.urlencode(values)       
         url = self.build.url("/comments/comment", params, True)
         return self.build.data(url, True, post_params)        
+    
+    def comments_comments(self, type, id, ndpp, since_id = None, order ="asc", replies=1):
+        """
+        type: self.type, id: int, ndpp: int > 0, since_id:int, order: self.order, replies: self.binary
+        """
+        if (type not in self.type) or (order not in self.order) or (replies not in self.binary):
+            ##TODO
+            return None
+        dict_values = {'type': type, 'id': id, 'ndpp': ndpp, 'order': order, 'replies': replies}
+        if since_id is not None:
+            dict_values['since_id']=since_id
+        params = urllib.urlencode(dict_values)
+        url = self.build.url("/comments/comments", params)
+        return self.build.data(url)
     
     def episodes_display(self, id = [], thetvdb_id = [], subtitles = True):
         """
