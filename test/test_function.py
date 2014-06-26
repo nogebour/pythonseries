@@ -15,7 +15,9 @@ debug_episodes_display = False
 debug_episodes_list = False
 debug_movies_random = False
 debug_comments_comment_post = False
-debug_comments_comment = True
+debug_comments_comment = False
+debug_comments_replies = False
+debug_comments_subscription_post = True
 def args_space():
 	parser = argparse.ArgumentParser(description='Betaseries Authentification.')
 	parser.add_argument('-l', '--login', type=str, required=True, help='Login for betaseries')
@@ -82,5 +84,11 @@ def main():
         if debug_comments_comment:
 		print '###########################'        
                 print json.loads(beta.comments_comments("show", 2410, 20))
+        if debug_comments_replies:
+                print '###########################'        
+                print json.loads(beta.comments_replies(35981))
+        if debug_comments_subscription_post:
+                print '###########################'
+                print json.loads(beta.comments_subscription_post(token, "show", 2410))
 if __name__ == "__main__":
 	main()

@@ -16,8 +16,8 @@ Work to do:
 |POST comments/comment|Done|
 |DELETE comments/comment||
 |GET comments/comments|Done|
-|GET comments/replies||
-|POST comments/subscription||
+|GET comments/replies|Done|
+|POST comments/subscription|Done|
 |DELETE comments/subscription||
 |GET episodes/display|Done|
 |POST episodes/download||

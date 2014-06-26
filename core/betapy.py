@@ -84,6 +84,27 @@ class Beta:
         url = self.build.url("/comments/comments", params)
         return self.build.data(url)
     
+    def comments_replies(self, id, ordre="asc"):
+        """
+        id: int, type: self.order
+        """
+        if (ordre not in self.order):
+            return None ##TODO
+        params = urllib.urlencode({'id': id, 'order':ordre})
+        url = self.build.url("/comments/replies", params)
+        return self.build.data(url)
+        
+    def comments_subscription_post(self, token, type, id):
+        """
+        token: token connexion, type: self.type, id:integer
+        """
+        if type not in self.type:
+            return None
+        params = urllib.urlencode({'token': token})
+        post_params = urllib.urlencode({'type': type, 'id': id})
+        url = self.build.url("/comments/subscription", params, True)
+        return self.build.data(url, True, post_params)
+    
     def episodes_display(self, id = [], thetvdb_id = [], subtitles = True):
         """
         id
@@ -275,6 +296,10 @@ class Builder:
 
         """
         # récupération du contenu à partir d'une requête url
+        if postparams is not None:
+            post = True
+        else:
+            post = False
 	source = None
 	if post:
 		source = self.get_post_source(url, postparams)
