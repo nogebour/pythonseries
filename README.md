@@ -23,7 +23,7 @@ Work to do:
 |POST episodes/download|Done|
 |DELETE episodes/download||
 |GET episodes/list|Done|
-|POST episodes/note||
+|POST episodes/note|Done|
 |DELETE episodes/note||
 |GET episodes/scraper||
 |GET episodes/search||

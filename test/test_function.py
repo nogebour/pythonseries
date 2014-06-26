@@ -18,7 +18,8 @@ debug_comments_comment_post = False
 debug_comments_comment = False
 debug_comments_replies = False
 debug_comments_subscription_post = False
-debug_episodes_downloaded = True
+debug_episodes_downloaded_post = False
+debug_episodes_note_post = True
 def args_space():
 	parser = argparse.ArgumentParser(description='Betaseries Authentification.')
 	parser.add_argument('-l', '--login', type=str, required=True, help='Login for betaseries')
@@ -103,12 +104,19 @@ def main():
                                 print "comments_suscribtion_post OK"
                 else:
                         print json.loads(beta.comments_subscription_post(token, "show", 2410))
-        if debug_episodes_downloaded or debug_all:
+        if debug_episodes_downloaded_post or debug_all:
                 print '###########################'
                 if debug_all:
                         if json.loads(beta.episodes_downloaded_post(token, 233264)) is not None:
                                 print "episodes_downloaded ok"
                 else:
                         print json.loads(beta.episodes_downloaded_post(token, 233264))
+        if debug_episodes_note_post or debug_all:
+                print '###########################'
+                if debug_all:
+                        if json.loads(beta.episodes_note_post(token, 4, 233264)) is not None:
+                                print "episodes_note_post ok"
+                else:
+                        print json.loads(beta.episodes_note_post(token, 4, 233264))            
 if __name__ == "__main__":
 	main()

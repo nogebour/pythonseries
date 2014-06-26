@@ -153,6 +153,22 @@ class Beta:
         url = self.build.url("/episodes/list", params)
         return self.build.data(url)
         
+    def episodes_note_post(self, token, note, id=None, thetvdb_id=None):
+        """
+        note:0<note<5, id:int, thetvdb_id:int
+        """
+        if ((note < 0) or (note > 5) or ((id is None) and (thetvdb_id is None))):
+            return None ##TODO
+        params = urllib.urlencode({'token' : token})
+        post_values={'note':note}
+        if id is not None:
+            post_values['id']=id
+        if thetvdb_id is not None:
+            post_values['thetvdb_id']=thetvdb_id        
+        post_params = urllib.urlencode(post_values)
+        url = self.build.url("/episodes/note", params, True)
+        return self.build.data(url, post_params)
+        
     def members_auth(self):
         """Identifie le membre avec son login et le hash MD5.
 
