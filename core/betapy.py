@@ -121,7 +121,23 @@ class Beta:
         params = urllib.urlencode(dict_params)
         url = self.build.url("/episodes/display", params)
         return self.build.data(url)        
-
+    
+    def episodes_downloaded_post(self, token, id = None, tvdb_id = None):
+        """
+        id:integer, tvdb_id: integer, One of them must be declared
+        """
+        if id is None and tvdb_id is None:
+            return None ##TODO
+        params = urllib.urlencode({'token': token})
+        post_values={}
+        if id is not None:
+            post_values['id']=id
+        if tvdb_id is not None:
+            post_values['thetvdb_id']=tvdb_id
+        post_params = urllib.urlencode(post_values)
+        url = self.build.url("/episodes/downloaded", params, True)
+        return self.build.data(url, post_params)
+        
     def episodes_list(self, subtitles = "all", limit = None, showId = None, userId = None, token = None):
         dict_params = {}
         if userId is not None:

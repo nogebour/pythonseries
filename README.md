@@ -20,7 +20,7 @@ Work to do:
 |POST comments/subscription|Done|
 |DELETE comments/subscription||
 |GET episodes/display|Done|
-|POST episodes/download||
+|POST episodes/download|Done|
 |DELETE episodes/download||
 |GET episodes/list|Done|
 |POST episodes/note||
