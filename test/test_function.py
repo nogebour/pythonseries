@@ -19,7 +19,8 @@ debug_comments_comment = False
 debug_comments_replies = False
 debug_comments_subscription_post = False
 debug_episodes_downloaded_post = False
-debug_episodes_note_post = True
+debug_episodes_note_post = False
+debug_episodes_scraper = True
 def args_space():
 	parser = argparse.ArgumentParser(description='Betaseries Authentification.')
 	parser.add_argument('-l', '--login', type=str, required=True, help='Login for betaseries')
@@ -117,6 +118,13 @@ def main():
                         if json.loads(beta.episodes_note_post(token, 4, 233264)) is not None:
                                 print "episodes_note_post ok"
                 else:
-                        print json.loads(beta.episodes_note_post(token, 4, 233264))            
+                        print json.loads(beta.episodes_note_post(token, 4, 233264))
+        #if debug_episodes_scraper or debug_all:
+        #        print '###########################'
+        #        if debug_all:
+        #                if json.loads(beta.episodes_scraper("lost_girl_S01E01")) is not None:
+        #                        print "episodes_scraper ok"
+        #        else:
+        #                print json.loads(beta.episodes_scraper("lost_girl_S01E01"))
 if __name__ == "__main__":
 	main()

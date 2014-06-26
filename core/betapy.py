@@ -168,6 +168,13 @@ class Beta:
         post_params = urllib.urlencode(post_values)
         url = self.build.url("/episodes/note", params, True)
         return self.build.data(url, post_params)
+    
+    ##TODO    
+    def episodes_scraper(self, file):
+    	params = urllib.urlencode({'file':file})
+        url = self.build.url("/episodes/scraper", params)
+        print url
+        return self.build.data(url)
         
     def members_auth(self):
         """Identifie le membre avec son login et le hash MD5.
@@ -266,10 +273,7 @@ class Builder:
         self.format = format
 	# Verison of the API used
 	self.version = "2.2"
-	handler=urllib2.HTTPHandler(debuglevel=1)
-	opener = urllib2.build_opener(handler)
-	urllib2.install_opener(opener)
-
+	
 
     def url(self, method, params=None, https=False):
         """Constructeur d'url pour les requêtes vers l'API.
@@ -333,6 +337,9 @@ class Builder:
         else:
             post = False
 	source = None
+	handler=urllib2.HTTPHandler(debuglevel=1)
+	opener = urllib2.build_opener(handler)
+	urllib2.install_opener(opener)
 	if post:
 		source = self.get_post_source(url, postparams)
 	else:
