@@ -68,7 +68,7 @@ class Beta:
             values['in_reply_to']=in_reply_to
         post_params = urllib.urlencode(values)       
         url = self.build.url("/comments/comment", params, True)
-        return self.build.data(url, True, post_params)        
+        return self.build.data(url, post_params)        
     
     def comments_comments(self, type, id, ndpp, since_id = None, order ="asc", replies=1):
         """
@@ -103,7 +103,7 @@ class Beta:
         params = urllib.urlencode({'token': token})
         post_params = urllib.urlencode({'type': type, 'id': id})
         url = self.build.url("/comments/subscription", params, True)
-        return self.build.data(url, True, post_params)
+        return self.build.data(url, post_params)
     
     def episodes_display(self, id = [], thetvdb_id = [], subtitles = True):
         """
@@ -149,7 +149,7 @@ class Beta:
         params = urllib.urlencode({})
         post_params = urllib.urlencode({'login': self.login, 'password': hash_pass})
         url = self.build.url("/members/auth", params)
-        return self.build.data(url, True, post_params)        
+        return self.build.data(url, post_params)        
 
     def members_episodes(self, token):
         """Vérifie si le token spécifié est actif."""
@@ -287,7 +287,7 @@ class Builder:
 	response = urllib2.urlopen(req)
 	return response.read()
 
-    def data(self, url, post=False, postparams=None):
+    def data(self, url, postparams=None):
         """Converti les retours de requêtes en données communément exploitables.
 
         Proposition: tout transformer en dictionnaire python par défaut.
