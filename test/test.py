@@ -24,7 +24,6 @@ class betastatTest(unittest.TestCase):
                         self.fail("TOKEN is None ! It is not normal !")
                 return beta, TOKEN
 
-        @unittest.skipIf(self.TOKEN is None, "Token is None! It means that the authentification fails")
         def test_members_infos(self):                
                 beta,TOKEN = self.test_authentification()
                 to_see = json.loads(beta.members_infos(TOKEN))
