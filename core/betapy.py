@@ -171,7 +171,7 @@ class Beta:
     
     ##TODO    
     def episodes_scraper(self, file):
-    	params = urllib.urlencode({'file':file})
+    	params = urllib.urlencode({'file':file.replace(" ", "+")})
         url = self.build.url("/episodes/scraper", params)
         print url
         return self.build.data(url)

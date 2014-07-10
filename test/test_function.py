@@ -119,12 +119,12 @@ def main():
                                 print "episodes_note_post ok"
                 else:
                         print json.loads(beta.episodes_note_post(token, 4, 233264))
-        #if debug_episodes_scraper or debug_all:
-        #        print '###########################'
-        #        if debug_all:
-        #                if json.loads(beta.episodes_scraper("lost_girl_S01E01")) is not None:
-        #                        print "episodes_scraper ok"
-        #        else:
-        #                print json.loads(beta.episodes_scraper("lost_girl_S01E01"))
+        if debug_episodes_scraper or debug_all:
+                print '###########################'
+                if debug_all:
+                        if json.loads(beta.episodes_scraper("lostgirlS01E01")) is not None:
+                                print "episodes_scraper ok"
+                else:
+                        print json.loads(beta.episodes_scraper("lostgirlS01E01"))
 if __name__ == "__main__":
 	main()
