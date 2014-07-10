@@ -26,7 +26,7 @@ Work to do:
 |POST episodes/note|Done|
 |DELETE episodes/note||
 |GET episodes/scraper|BUG|
-|GET episodes/search||
+|GET episodes/search|DONE|
 |POST episodes/watched||
 |DELETE episodes/watched||
 |POST friends/block||

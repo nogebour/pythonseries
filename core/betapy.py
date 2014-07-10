@@ -169,12 +169,22 @@ class Beta:
         url = self.build.url("/episodes/note", params, True)
         return self.build.data(url, post_params)
     
-    ##TODO    
+    ##TOFIX    
     def episodes_scraper(self, file):
     	params = urllib.urlencode({'file':file.replace(" ", "+")})
         url = self.build.url("/episodes/scraper", params)
         print url
         return self.build.data(url)
+
+    def episodes_search(self, show_id, number, subtitles=False):
+        """
+        show_id:int, number:int, subtitles:boolean
+        """
+    	params = urllib.urlencode({'show_id':show_id, 'number': number})
+        url = self.build.url("/episodes/search", params)
+        #print url
+        return self.build.data(url)
+
         
     def members_auth(self):
         """Identifie le membre avec son login et le hash MD5.
