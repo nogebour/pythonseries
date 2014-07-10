@@ -11,12 +11,12 @@ My goal is to have a simple API to abstract just a level to the BetaSeries API. 
 
 Work to do:
 
-|Method|Status|
-|------|------|
-|POST comments/comment|Done|
-|DELETE comments/comment||
-|GET comments/comments|Done|
-|GET comments/replies|Done|
+|Method|Status|Tested|Unit Test|
+|------|------|------|---------|
+|POST comments/comment|Done|||
+|DELETE comments/comment||||
+|GET comments/comments|Done|||
+|GET comments/replies|Done|||
 |POST comments/subscription|Done|
 |DELETE comments/subscription||
 |GET episodes/display|Done|
@@ -26,7 +26,7 @@ Work to do:
 |POST episodes/note|Done|
 |DELETE episodes/note||
 |GET episodes/scraper|BUG|
-|GET episodes/search|DONE|
+|GET episodes/search|Done|
 |POST episodes/watched||
 |DELETE episodes/watched||
 |POST friends/block||
