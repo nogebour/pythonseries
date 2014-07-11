@@ -36,7 +36,7 @@ Work to do:
 |GET friends/list||||
 |GET friends/requests||||
 |POST members/access_token||||
-|POST members/auth|Done|||
+|POST members/auth|Done|Ok||
 |POST members/avatar||||
 |DELETE members/avatar||||
 |GET members/badges||||
@@ -82,7 +82,7 @@ Work to do:
 |POST shows/favorite||||
 |DELETE shows/favorite||||
 |GET shows/favorite||||
-|GET shows/list|Done|||
+|GET shows/list|Done|Ok||
 |POST shows/note||||
 |DELETE shows/note||||
 |GET shows/pictures||||
