@@ -5,7 +5,14 @@ import json
 import urllib2
 import MySQLdb
 import argparse	
+###################
+#  General Debug  #
+###################
 debug_all = False
+debug_write_file = True
+###################
+# Specific Debug  #
+###################
 debug_similar = False
 debug_subtitle = False
 debug_ended = False
@@ -21,7 +28,10 @@ debug_comments_subscription_post = False
 debug_episodes_downloaded_post = False
 debug_episodes_note_post = False
 debug_episodes_scraper = False
-debug_episodes_search = True
+debug_episodes_search = False
+debug_pictures_episodes = True
+debug_pictures_episodes_no_picture = True
+
 def args_space():
 	parser = argparse.ArgumentParser(description='Betaseries Authentification.')
 	parser.add_argument('-l', '--login', type=str, required=True, help='Login for betaseries')
@@ -131,8 +141,38 @@ def main():
                 print '###########################'
                 if debug_all:
                         if json.loads(beta.episodes_search("2410","S01E01",True)) is not None:
-                                print "episodes_scraper ok"
+                                print "episodes_search ok"
                 else:
                         print json.loads(beta.episodes_search("2410","S01E01",True))
+        if debug_pictures_episodes or debug_all:
+                print '###########################'
+                if debug_all:
+                        if json.loads(beta.pictures_episodes(233264)) is not None:
+                                print "pictures_episodes ok"
+                else:
+                        image =  beta.pictures_episodes(233264)
+                        if image is not None:
+                                if debug_write_file:
+                                        f = open("picture.png", "w")
+                                        f.write(image)
+                                        f.close()
+                                        print "image file is received and written"
+                                else:
+                                        print "Image received"
+                        else:
+                                print "Problem with the picture !"
+        if debug_pictures_episodes_no_picture or debug_all:
+                print '###########################'
+                if debug_all:
+                        if json.loads(beta.pictures_episodes(377210)) is not None:
+                                print "pictures_episodes ok"
+                else:
+                        image =  beta.pictures_episodes(377210)
+                        if image is None:
+                                print "No image is available"
+                        else:
+                                print "an image has been received"
+                        
+
 if __name__ == "__main__":
 	main()

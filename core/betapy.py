@@ -216,6 +216,21 @@ class Beta:
         params = urllib.urlencode({'nb': nb})
         url = self.build.url("/movies/random", params)
         return self.build.data(url)
+        
+    def pictures_episodes(self, id, width=400, height=225):
+        """
+        id:int, width:int, height:int, width & height : optional
+        """
+        params_dict = {'id':id}
+        params_dict['width']=width
+        params_dict['height']=height
+        params = urllib.urlencode(params_dict)
+        url = self.build.url("/pictures/episodes", params)
+        try:
+            return self.build.data(url)
+        except urllib2.HTTPError:
+            return None
+        
 
     def planning_member(self, token="", view=""):
         """Affiche le planning du membre identifié ou d'un autre membre.

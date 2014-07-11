@@ -70,7 +70,7 @@ Work to do:
 |GET pictures/episodes||||
 |GET pictures/members||||
 |GET pictures/movies||||
-|GET pictures/shows||||
+|GET pictures/shows|Done|HTTPError if no image is available||
 |GET planning/general||||
 |GET planning/incoming||||
 |GET planning/member|Done|||
