@@ -13,20 +13,20 @@ Work to do:
 
 |Method|Status|Tested|Unit Test|
 |------|------|------|---------|
-|POST comments/comment|Done|||
+|POST comments/comment|Done|Ok||
 |DELETE comments/comment||||
-|GET comments/comments|Done|||
-|GET comments/replies|Done|||
-|POST comments/subscription|Done|||
+|GET comments/comments|Done|Ok||
+|GET comments/replies|Done|Ok||
+|POST comments/subscription|Done|Ok||
 |DELETE comments/subscription||||
-|GET episodes/display|Done|||
-|POST episodes/download|Done|||
+|GET episodes/display|Done|Ok||
+|POST episodes/download|Done|Ok||
 |DELETE episodes/download||||
-|GET episodes/list|Done|||
-|POST episodes/note|Done|||
+|GET episodes/list|Done|Ok||
+|POST episodes/note|Done|Ok||
 |DELETE episodes/note||||
 |GET episodes/scraper|BUG|||
-|GET episodes/search|Done|||
+|GET episodes/search|Done|Ok||
 |POST episodes/watched||||
 |DELETE episodes/watched||||
 |POST friends/block||||
@@ -41,7 +41,7 @@ Work to do:
 |DELETE members/avatar||||
 |GET members/badges||||
 |POST members/destroy||||
-|GET members/infos|Done|||
+|GET members/infos|Done|Ok||
 |GET members/is_active||||
 |POST members/lost||||
 |GET members/notifications||||
@@ -62,7 +62,7 @@ Work to do:
 |GET movies/movie||||
 |POST movies/movie||||
 |DELETE movies/movie||||
-|GET movies/random|Done|||
+|GET movies/random|Done|Ok||
 |GET movies/scraper||||
 |GET movies/search||||
 |GET pictures/badges||||
@@ -73,7 +73,7 @@ Work to do:
 |GET pictures/shows||||
 |GET planning/general||||
 |GET planning/incoming||||
-|GET planning/member|Done|||
+|GET planning/member|Done|Ok||
 |POST shows/archive||||
 |DELETE shows/archive||||
 |GET shows/characters||||
@@ -93,9 +93,9 @@ Work to do:
 |GET shows/search||||
 |POST shows/show||||
 |DELETE shows/show||||
-|GET shows/similars|Done|||
+|GET shows/similars|Done|Ok||
 |GET shows/videos||||
-|GET subtitles/episode|Done|||
+|GET subtitles/episode|Done|Ok||
 |GET subtitles/last||||
 |GET subtitles/report||||
 |GET subtitles/show||||
