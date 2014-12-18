@@ -15,7 +15,7 @@ import json
 
 class Beta:
     def __init__( self,
-                  key="a71be26370dc",
+                  key="",
                   user_agent="BetaPy",
                   format="json",
                   login=None,
